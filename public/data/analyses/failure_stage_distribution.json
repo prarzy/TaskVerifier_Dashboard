@@ -1,0 +1,17 @@
+{
+  "id": "failure_stage_distribution",
+  "title": "Verifier Stage at Each Attempt",
+  "description": "Stacked breakdown showing execution stage vs sanitizer stage across attempts. Failures shift toward sanitizer stage as attempts progress.",
+  "chart_type": "stacked_bar",
+  "x_key": "attempt",
+  "x_label": "Attempt Number",
+  "y_label": "Count of CVEs",
+  "data_key": "failure_stage_distribution_by_attempt",
+  "series": [
+    { "key": "stage_execution_count", "label": "Execution (no crash)", "color": "#f59e0b" },
+    { "key": "stage_sanitizer_count", "label": "Sanitizer (crash)", "color": "#10b981" }
+  ],
+  "source": "dataset.json",
+  "order": 3,
+  "claim": "Failures shift from execution stage early on to sanitizer stage at success, showing PoC quality improving."
+}

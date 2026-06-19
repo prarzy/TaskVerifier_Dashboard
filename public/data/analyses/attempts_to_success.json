@@ -1,0 +1,16 @@
+{
+  "id": "attempts_to_success",
+  "title": "Attempts to Success per CVE",
+  "description": "Number of iterations required before TaskVerifier generated a working PoC for each CVE.",
+  "chart_type": "bar",
+  "x_key": "cve",
+  "x_label": "CVE ID",
+  "y_label": "Attempts Until First Crash",
+  "data_key": "attempts_to_success",
+  "series": [
+    { "key": "attempts_to_success", "label": "Attempts", "color": "#8b5cf6" }
+  ],
+  "source": "dataset.json",
+  "order": 2,
+  "claim": "TaskVerifier reliably finds a working PoC within the attempt budget."
+}

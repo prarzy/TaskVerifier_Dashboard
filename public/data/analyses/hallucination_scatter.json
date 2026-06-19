@@ -1,0 +1,16 @@
+{
+  "id": "hallucination_scatter",
+  "title": "Hallucinated Symbols per Attempt",
+  "description": "Scatter plot of hallucinated symbol counts. Hallucinations are rare and not correlated with attempt number.",
+  "chart_type": "scatter",
+  "x_key": "attempt",
+  "x_label": "Attempt Number",
+  "y_label": "Hallucinated Symbol Count",
+  "data_key": "hallucination_count_by_attempt_across_cves",
+  "series": [
+    { "key": "hallucinated_symbol_count", "label": "Hallucinated Symbols", "color": "#f59e0b" }
+  ],
+  "source": "dataset.json",
+  "order": 6,
+  "claim": "Hallucinations are rare and uncorrelated with attempt number."
+}

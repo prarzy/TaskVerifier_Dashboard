@@ -1,0 +1,19 @@
+{
+  "project_name": "TaskVerifier",
+  "tagline": "Structured Execution Feedback for AI-Generated Vulnerability Exploits",
+  "benchmark": "CyberGym (ARVO subset)",
+  "status": "experiments_running",
+  "last_updated": "2026-06-15",
+  "metrics": {
+    "total_cves": 3,
+    "taskverifier_success_rate": 1.0,
+    "baseline_success_rate": 0.333,
+    "improvement_pct": 200,
+    "avg_attempts_to_success": 3.33,
+    "max_attempts_allowed": 10,
+    "vuln_classes_covered": 3,
+    "models_evaluated": 1,
+    "experiments_completed": 3
+  },
+  "notes": "Early experiment batch. More CVEs being added. Baseline figures are estimates."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "vuln_class_breakdown",
+  "title": "Attempts by Vulnerability Class",
+  "description": "Compares attempts required for different vulnerability classes.",
+  "chart_type": "bar",
+  "x_key": "vuln_class",
+  "x_label": "Vulnerability Class",
+  "y_label": "Attempts to Success",
+  "data_key": "cve_summary",
+  "series": [
+    { "key": "attempts_to_success", "label": "Attempts to Success", "color": "#ef4444" }
+  ],
+  "source": "dataset.json",
+  "order": 5,
+  "claim": "Different vulnerability classes require different numbers of iterations."
+}

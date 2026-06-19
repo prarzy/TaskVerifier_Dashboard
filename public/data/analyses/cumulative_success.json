@@ -1,0 +1,16 @@
+{
+  "id": "cumulative_success",
+  "title": "Cumulative Pass Rate by Attempt",
+  "description": "Shows how quickly TaskVerifier converges. A steep early rise indicates fast convergence.",
+  "chart_type": "line",
+  "x_key": "attempt",
+  "x_label": "Attempt Number",
+  "y_label": "Cumulative Fraction of CVEs Solved",
+  "data_key": "cumulative_success_by_attempt",
+  "series": [
+    { "key": "cumulative_rate", "label": "Cumulative Pass Rate", "color": "#3b82f6" }
+  ],
+  "source": "dataset.json",
+  "order": 1,
+  "claim": "TaskVerifier reaches 100% pass rate within the attempt budget; feedback-guided iteration enables full convergence."
+}

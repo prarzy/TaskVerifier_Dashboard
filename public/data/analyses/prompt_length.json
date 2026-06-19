@@ -1,0 +1,17 @@
+{
+  "id": "prompt_length",
+  "title": "Prompt & Response Length by Attempt",
+  "description": "Initial prompts (attempt 1) are significantly longer due to source context injection. Subsequent prompts are shorter feedback loops.",
+  "chart_type": "scatter",
+  "x_key": "attempt",
+  "x_label": "Attempt Number",
+  "y_label": "Characters",
+  "data_key": "prompt_length_by_attempt",
+  "series": [
+    { "key": "prompt_length_chars", "label": "Prompt Length", "color": "#06b6d4" },
+    { "key": "llm_response_length_chars", "label": "LLM Response Length", "color": "#8b5cf6" }
+  ],
+  "source": "dataset.json",
+  "order": 4,
+  "claim": "Initial prompts are much longer due to source context injection; later prompts are shorter feedback loops."
+}
