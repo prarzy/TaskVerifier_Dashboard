@@ -25,37 +25,44 @@ export default function OverviewPage() {
   const baselineRate = m?.baseline_success_rate;
 
   return (
-    <div className="p-8 space-y-8 max-w-7xl mx-auto">
+    <div className="p-10 space-y-12 max-w-6xl mx-auto">
 
       {/* Header */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-2">
-          <div className="text-[10px] font-mono text-accent-blue uppercase tracking-widest">
+      <div className="space-y-4">
+        <div className="flex items-center gap-2.5">
+          <span className="text-[10px] font-mono text-accent-blue uppercase tracking-widest">
             {overview?.benchmark ?? 'CyberGym Benchmark'}
-          </div>
-          <div className="w-1 h-1 rounded-full bg-text-dim" />
+          </span>
           {overview?.status === 'experiments_running' && (
-            <div className="text-[10px] font-mono text-accent-green uppercase tracking-widest flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-green inline-block animate-pulse" />
-              Experiments Active
-            </div>
+            <>
+              <span className="w-1 h-1 rounded-full bg-text-dim" />
+              <span className="text-[10px] font-mono text-accent-green uppercase tracking-widest flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-green inline-block animate-pulse" />
+                Experiments Active
+              </span>
+            </>
           )}
         </div>
-        <h2 className="text-2xl font-semibold text-text-primary">
+
+        <h2 className="text-3xl font-semibold text-text-primary leading-tight">
           {overview?.project_name ?? 'TaskVerifier'}
         </h2>
-        <p className="text-sm text-text-secondary max-w-2xl">
+
+        <p className="text-base text-text-secondary max-w-2xl leading-relaxed">
           {overview?.tagline ?? 'AI-generated PoC exploit generation with structured execution feedback.'}
         </p>
+
         {overview?.notes && (
-          <p className="text-xs text-text-muted italic">{overview.notes}</p>
+          <p className="text-xs text-text-muted italic max-w-2xl leading-relaxed pt-1">
+            {overview.notes}
+          </p>
         )}
       </div>
 
       {/* Primary metrics */}
       {m ? (
-        <>
-          <div className="grid grid-cols-3 gap-4">
+        <div className="space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <MetricCard
               label="TaskVerifier Success Rate"
               value={successRate !== undefined ? fmtPct(successRate) : undefined}
@@ -82,7 +89,7 @@ export default function OverviewPage() {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             <MetricCard
               label="Total CVEs"
               value={m.total_cves}
@@ -125,7 +132,7 @@ export default function OverviewPage() {
               accent="green"
             />
           </div>
-        </>
+        </div>
       ) : (
         <EmptyState
           title="Metrics pending experiment completion"
@@ -133,24 +140,34 @@ export default function OverviewPage() {
         />
       )}
 
-      {/* Dataset info */}
-      {meta && (
-        <div className="rounded-xl border border-bg-border bg-bg-card p-5 text-xs font-mono space-y-2">
-          <div className="text-text-muted uppercase tracking-widest text-[10px]">Dataset Info</div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-text-secondary">
-            {meta.schema_version && <div><span className="text-text-dim">Schema: </span>{meta.schema_version}</div>}
-            {meta.generated_at && <div><span className="text-text-dim">Generated: </span>{meta.generated_at}</div>}
-            {meta.total_cves !== undefined && <div><span className="text-text-dim">CVEs in dataset: </span>{meta.total_cves}</div>}
-          </div>
-          {meta.description && <div className="text-text-muted">{meta.description}</div>}
-        </div>
-      )}
-
       {/* Workflow diagram */}
-      <div className="rounded-xl border border-bg-border bg-bg-card p-6">
-        <div className="text-xs font-mono text-text-muted uppercase tracking-widest mb-5">TaskVerifier Workflow</div>
+      <div className="rounded-xl border border-bg-border bg-bg-card p-8">
+        <div className="text-xs font-mono text-text-muted uppercase tracking-widest mb-8">
+          TaskVerifier Workflow
+        </div>
         <WorkflowDiagram />
       </div>
+
+      {/* Dataset info */}
+      {meta && (
+        <div className="rounded-xl border border-bg-border bg-bg-card p-6 space-y-3">
+          <div className="text-text-muted uppercase tracking-widest text-[10px] font-mono">Dataset Info</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono text-text-secondary">
+            {meta.schema_version && (
+              <div><span className="text-text-dim">Schema </span>{meta.schema_version}</div>
+            )}
+            {meta.generated_at && (
+              <div><span className="text-text-dim">Generated </span>{meta.generated_at}</div>
+            )}
+            {meta.total_cves !== undefined && (
+              <div><span className="text-text-dim">CVEs in dataset </span>{meta.total_cves}</div>
+            )}
+          </div>
+          {meta.description && (
+            <div className="text-xs text-text-muted leading-relaxed pt-1">{meta.description}</div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -167,20 +184,22 @@ function WorkflowDiagram() {
   ];
 
   return (
-    <div className="flex items-center gap-0 flex-wrap">
+    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-x-2 gap-y-6">
       {steps.map((step, i) => (
-        <div key={step.label} className="flex items-center">
-          <div className="flex flex-col items-center gap-1">
-            <div
-              className="px-4 py-2.5 rounded-lg text-xs font-semibold text-white"
-              style={{ background: `${step.color}22`, border: `1px solid ${step.color}44`, color: step.color }}
-            >
-              {step.label}
-            </div>
-            <div className="text-[9px] text-text-dim text-center max-w-[80px]">{step.sub}</div>
+        <div key={step.label} className="relative flex flex-col items-center gap-2 text-center">
+          <div
+            className="w-full px-3 py-2.5 rounded-lg text-xs font-semibold whitespace-nowrap"
+            style={{ background: `${step.color}1a`, border: `1px solid ${step.color}40`, color: step.color }}
+          >
+            {step.label}
           </div>
+          <div className="text-[10px] text-text-dim leading-snug px-1">{step.sub}</div>
+
+          {/* Connector arrow — hidden below lg to avoid wrap misalignment */}
           {i < steps.length - 1 && (
-            <div className="mx-2 text-text-dim text-xs">→</div>
+            <div className="hidden lg:flex absolute top-3 -right-2 translate-x-full text-text-dim text-sm">
+              →
+            </div>
           )}
         </div>
       ))}

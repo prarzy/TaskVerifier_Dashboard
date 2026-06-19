@@ -1,23 +1,24 @@
 {
   "models": [
     {
-      "id": "claude-opus-4",
-      "name": "Claude Opus 4",
-      "provider": "Anthropic",
-      "version": "claude-opus-4",
+      "id": "deepseek-v4-flash",
+      "name": "DeepSeek V4 Flash",
+      "provider": "DeepSeek (via OpenRouter)",
+      "version": "deepseek/deepseek-v4-flash",
       "role": "Primary agent for PoC generation",
       "success_rate": 1.0,
       "avg_attempts": 3.33,
       "total_cves": 3,
       "total_successes": 3,
       "hallucination_rate": 0.33,
-      "context_window": "200K tokens",
-      "notes": "Used for all current experiments. Strong performance on memory-safety bug classes.",
+      "context_window": "128K tokens",
+      "notes": "Used for all current experiments. Strong performance on memory-safety bug classes. Accessed via OpenRouter API.",
       "experiment_settings": {
         "max_attempts": 10,
         "feedback_enabled": true,
         "temperature": 0.2,
-        "system_prompt": "TaskVerifier agent prompt v1.2"
+        "system_prompt": "TaskVerifier agent prompt v1.2",
+        "api_provider": "OpenRouter"
       }
     }
   ]
