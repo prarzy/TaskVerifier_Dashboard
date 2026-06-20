@@ -4,18 +4,20 @@ import { fmtVulnClass, resultColor } from '../../utils/data';
 import CodeViewer from '../shared/CodeViewer';
 import RawJsonViewer from '../shared/RawJsonViewer';
 import EmptyState from '../shared/EmptyState';
-import { CheckCircle, XCircle, AlertCircle, Clock } from 'lucide-react';
+import CveAttemptChart from './CveAttemptChart';
+import { CheckCircle, XCircle, AlertCircle, Clock, BarChart3 } from 'lucide-react';
 
 interface CveDetailTabsProps {
   cve: CVEEntry;
 }
 
-type TabId = 'metadata' | 'attempts' | 'feedback' | 'transcript' | 'raw';
+type TabId = 'metadata' | 'attempts' | 'feedback' | 'visualization' | 'transcript' | 'raw';
 
 const TABS: { id: TabId; label: string }[] = [
   { id: 'metadata', label: 'Metadata' },
   { id: 'attempts', label: 'Attempt History' },
   { id: 'feedback', label: 'Compiler / Sanitizer' },
+  { id: 'visualization', label: 'Visualization' },
   { id: 'transcript', label: 'Transcript' },
   { id: 'raw', label: 'Raw JSON' },
 ];
@@ -179,6 +181,63 @@ export default function CveDetailTabs({ cve }: CveDetailTabsProps) {
               message="Detailed compiler and sanitizer outputs are not yet available for this CVE."
               icon={<AlertCircle size={20} />}
             />
+          )}
+        </div>
+      )}
+
+      {tab === 'visualization' && (
+        <div className="space-y-6">
+          {attempts.length === 0 ? (
+            <EmptyState
+              title="No visualization data"
+              message="Attempt-level metrics are not available for this CVE."
+              icon={<BarChart3 size={20} />}
+            />
+          ) : (
+            <>
+              {attempts.some((a) => a.prompt_length_chars != null || a.llm_response_length_chars != null) ? (
+                <div className="rounded-xl border border-bg-border bg-bg-card p-5 space-y-2">
+                  <h4 className="text-sm font-semibold text-text-primary">Prompt &amp; Response Length per Attempt</h4>
+                  <p className="text-xs text-text-muted leading-relaxed">
+                    Character count of the prompt sent and the LLM response received at each attempt for this CVE.
+                  </p>
+                  <CveAttemptChart
+                    data={attempts as unknown as Record<string, unknown>[]}
+                    series={[
+                      { key: 'prompt_length_chars', label: 'Prompt Length', color: '#06b6d4' },
+                      { key: 'llm_response_length_chars', label: 'LLM Response Length', color: '#8b5cf6' },
+                    ]}
+                    yLabel="Characters"
+                  />
+                </div>
+              ) : (
+                <EmptyState
+                  title="No prompt/response length data"
+                  message="This metric has not been recorded for this CVE's attempts."
+                />
+              )}
+
+              {attempts.some((a) => a.hallucinated_symbol_count != null) ? (
+                <div className="rounded-xl border border-bg-border bg-bg-card p-5 space-y-2">
+                  <h4 className="text-sm font-semibold text-text-primary">Hallucinated Symbols per Attempt</h4>
+                  <p className="text-xs text-text-muted leading-relaxed">
+                    Count of hallucinated symbols detected at each attempt for this CVE.
+                  </p>
+                  <CveAttemptChart
+                    data={attempts as unknown as Record<string, unknown>[]}
+                    series={[
+                      { key: 'hallucinated_symbol_count', label: 'Hallucinated Symbols', color: '#f59e0b' },
+                    ]}
+                    yLabel="Symbol Count"
+                  />
+                </div>
+              ) : (
+                <EmptyState
+                  title="No hallucination data"
+                  message="This metric has not been recorded for this CVE's attempts."
+                />
+              )}
+            </>
           )}
         </div>
       )}

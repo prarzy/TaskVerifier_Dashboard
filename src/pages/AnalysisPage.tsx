@@ -21,17 +21,17 @@ export default function AnalysisPage() {
         </p>
       </div>
 
-      {/* Graph recommendations from dataset */}
-      {dataset?.graph_recommendations && dataset.graph_recommendations.length > 0 && (
-        <div className="rounded-xl border border-accent-blue/20 bg-accent-blue/5 p-4">
-          <div className="text-[10px] font-mono text-accent-blue uppercase tracking-widest mb-2">
-            Recommended Visualizations (from dataset)
+      {/* Visualizations index — lists only charts actually rendered below */}
+      {analyses.length > 0 && (
+        <div className="rounded-xl border border-bg-border bg-bg-card p-4">
+          <div className="text-[10px] font-mono text-text-muted uppercase tracking-widest mb-2">
+            Visualizations
           </div>
-          <div className="grid grid-cols-2 gap-2 text-xs text-text-muted">
-            {dataset.graph_recommendations.map((g) => (
-              <div key={g.id} className="flex items-start gap-2">
-                <span className="font-mono text-text-dim">{g.id}</span>
-                <span>{g.title}</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-text-secondary">
+            {analyses.map((a) => (
+              <div key={a.id} className="flex items-start gap-2">
+                <span className="text-text-dim">·</span>
+                <span>{a.title ?? a.id}</span>
               </div>
             ))}
           </div>

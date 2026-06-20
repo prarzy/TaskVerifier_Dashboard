@@ -134,9 +134,17 @@ export default function DynamicChart({ config, data }: DynamicChartProps) {
   if (type === 'scatter') {
     return (
       <ResponsiveContainer width="100%" height={280}>
-        <ScatterChart {...commonProps}>
+        <ScatterChart {...commonProps} margin={{ top: 8, right: 16, left: 0, bottom: 28 }}>
           <CartesianGrid {...gridProps} />
-          <XAxis dataKey={xKey} name={config.x_label} {...axisProps} />
+          <XAxis
+            dataKey={xKey}
+            name={config.x_label}
+            {...axisProps}
+            angle={-35}
+            textAnchor="end"
+            height={50}
+            interval={0}
+          />
           <YAxis {...axisProps} />
           <Tooltip contentStyle={TOOLTIP_STYLE} cursor={{ strokeDasharray: '3 3' }} />
           {series.length > 1 && <Legend wrapperStyle={{ fontSize: 11, color: '#94a3b8' }} />}

@@ -34,12 +34,10 @@ export async function loadTimeline(): Promise<TimelineData | null> {
 export async function loadAnalyses(): Promise<AnalysisConfig[]> {
   const manifest = await fetchJson<{ files: string[] }>('/data/analyses/manifest.json');
   const filenames: string[] = manifest?.files ?? [
-    'cumulative_success.json',
-    'attempts_to_success.json',
-    'failure_stage_distribution.json',
-    'prompt_length.json',
-    'vuln_class_breakdown.json',
-    'hallucination_scatter.json',
+  'cumulative_success.json',
+  'attempts_to_success.json',
+  'failure_stage_distribution.json',
+  'vuln_class_breakdown.json',
   ];
   const results = await Promise.all(
     filenames.map((f) => fetchJson<AnalysisConfig>(`/data/analyses/${f}`))

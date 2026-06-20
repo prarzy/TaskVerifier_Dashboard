@@ -19,6 +19,17 @@ export default function AnalysisCard({ config, aggregated }: AnalysisCardProps) 
     }
   }
 
+  // If the data is per-CVE-per-attempt (e.g. arvo_1065 attempts 1-6, then arvo_3938
+  // attempt 1, then arvo_47101 attempts 1-3), plotting raw "attempt" on the X axis
+  // makes it look like the axis resets/goes backwards. Build a composite, unique
+  // label per point instead so each (cve, attempt) pair gets its own X position.
+  if (config.x_key === 'attempt' && chartData.some((row) => 'cve' in row)) {
+    chartData = chartData.map((row) => ({
+      ...row,
+      attempt: `${row.cve ?? ''} #${row.attempt ?? ''}`,
+    }));
+  }
+
   return (
     <div className="rounded-xl border border-bg-border bg-bg-card p-5 flex flex-col gap-4">
       {/* Header */}
