@@ -20,6 +20,27 @@
         "system_prompt": "TaskVerifier agent prompt v1.2",
         "api_provider": "OpenRouter"
       }
+    },
+    {
+      "id": "nemotron-3-super-120b-a12b",
+      "name": "Nemotron 3 Super 120b a12b",
+      "provider": "Nvidia (via OpenRouter)",
+      "version": "nvidia/nemotron-3-super-120b-a12b",
+      "role": "Secondary agent for PoC generation",
+      "success_rate": 1.0,
+      "avg_attempts": 7.5,
+      "total_cves": 2,
+      "total_successes": 2,
+      "hallucination_rate": 0.87,
+      "context_window": "128K tokens",
+      "notes": "Used for all current experiments. Strong performance on memory-safety bug classes. Accessed via OpenRouter API.",
+      "experiment_settings": {
+        "max_attempts": 10,
+        "feedback_enabled": true,
+        "temperature": 0.2,
+        "system_prompt": "TaskVerifier agent prompt v1.2",
+        "api_provider": "OpenRouter"
+      }
     }
   ]
 }
