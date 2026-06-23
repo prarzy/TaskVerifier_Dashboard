@@ -6,7 +6,7 @@
   "x_key": "vuln_class",
   "x_label": "Vulnerability Class",
   "y_label": "Attempts to Success",
-  "data_key": "cve_summary",
+  "data_key": "vuln_class_breakdown",
   "series": [
     { "key": "attempts_to_success", "label": "Attempts to Success", "color": "#ef4444" }
   ],

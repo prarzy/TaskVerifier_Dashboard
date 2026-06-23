@@ -4,7 +4,6 @@ import {
   Search,
   BarChart3,
   Cpu,
-  Clock,
   Info,
   Shield,
   ChevronRight,
@@ -15,7 +14,6 @@ const NAV_ITEMS = [
   { to: '/cve-explorer', label: 'CVE Explorer', icon: Search },
   { to: '/analysis', label: 'Analysis', icon: BarChart3 },
   { to: '/models', label: 'Models', icon: Cpu },
-  { to: '/timeline', label: 'Timeline', icon: Clock },
   { to: '/about', label: 'About', icon: Info },
 ];
 

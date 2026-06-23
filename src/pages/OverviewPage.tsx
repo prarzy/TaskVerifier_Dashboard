@@ -21,8 +21,16 @@ export default function OverviewPage() {
   const m = overview?.metrics;
   const meta = dataset?.meta;
 
+  // taskverifier_success_rate, total_cves, avg_attempts_to_success, max_attempts_allowed,
+  // vuln_classes_covered, models_evaluated, experiments_completed are all computed live
+  // from dataset.json's cves[] (see src/utils/computeMetrics.ts) — never hand-edited.
   const successRate = m?.taskverifier_success_rate;
+
+  // baseline_success_rate / improvement_pct have no equivalent in cves[] (there's no
+  // baseline run recorded per-CVE), so these stay as optional hand-edited fields in
+  // overview.json. They simply won't render if you don't set them.
   const baselineRate = m?.baseline_success_rate;
+  const improvementPct = m?.improvement_pct;
 
   return (
     <div className="p-10 space-y-12 max-w-6xl mx-auto">
@@ -71,22 +79,27 @@ export default function OverviewPage() {
               accent="blue"
               large
             />
-            <MetricCard
-              label="Baseline Success Rate"
-              value={baselineRate !== undefined ? fmtPct(baselineRate) : undefined}
-              sub="Single-attempt generation (no feedback)"
-              icon={<BarChart3 size={18} className="text-accent-purple" />}
-              accent="purple"
-              large
-            />
-            <MetricCard
-              label="Improvement"
-              value={m.improvement_pct !== undefined ? `+${m.improvement_pct}%` : undefined}
-              sub="TaskVerifier vs. Baseline"
-              icon={<TrendingUp size={18} className="text-accent-green" />}
-              accent="green"
-              large
-            />
+            {/* Only rendered if you've set a baseline figure by hand in overview.json — there's no per-CVE baseline data to compute this from. */}
+            {baselineRate !== undefined && (
+              <MetricCard
+                label="Baseline Success Rate"
+                value={fmtPct(baselineRate)}
+                sub="Single-attempt generation (no feedback)"
+                icon={<BarChart3 size={18} className="text-accent-purple" />}
+                accent="purple"
+                large
+              />
+            )}
+            {improvementPct !== undefined && (
+              <MetricCard
+                label="Improvement"
+                value={`+${improvementPct}%`}
+                sub="TaskVerifier vs. Baseline"
+                icon={<TrendingUp size={18} className="text-accent-green" />}
+                accent="green"
+                large
+              />
+            )}
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -159,8 +172,8 @@ export default function OverviewPage() {
             {meta.generated_at && (
               <div><span className="text-text-dim">Generated </span>{meta.generated_at}</div>
             )}
-            {meta.total_cves !== undefined && (
-              <div><span className="text-text-dim">CVEs in dataset </span>{meta.total_cves}</div>
+            {dataset?.cves && (
+              <div><span className="text-text-dim">CVEs in dataset </span>{dataset.cves.length}</div>
             )}
           </div>
           {meta.description && (

@@ -1,4 +1,4 @@
-import type { Dataset, OverviewData, ModelsData, TimelineData, AnalysisConfig } from '../types';
+import type { Dataset, OverviewData, ModelsData, AnalysisConfig } from '../types';
 
 /** Safely fetch JSON from /public/data/ */
 export async function fetchJson<T>(path: string): Promise<T | null> {
@@ -21,10 +21,6 @@ export async function loadOverview(): Promise<OverviewData | null> {
 
 export async function loadModels(): Promise<ModelsData | null> {
   return fetchJson<ModelsData>('/data/models.json');
-}
-
-export async function loadTimeline(): Promise<TimelineData | null> {
-  return fetchJson<TimelineData>('/data/timeline.json');
 }
 
 /**

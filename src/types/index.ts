@@ -190,23 +190,6 @@ export interface ModelEntry {
 export interface ModelsData {
   models?: ModelEntry[];
 }
-
-// ─── Timeline Types ───────────────────────────────────────────────────────────
-
-export interface TimelineEvent {
-  id: string;
-  date?: string;
-  title?: string;
-  description?: string;
-  category?: string;
-  icon?: string;
-  [key: string]: unknown;
-}
-
-export interface TimelineData {
-  events?: TimelineEvent[];
-}
-
 // ─── Analysis / Chart Types ───────────────────────────────────────────────────
 
 export interface ChartSeries {

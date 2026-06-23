@@ -11,14 +11,13 @@ interface CveDetailTabsProps {
   cve: CVEEntry;
 }
 
-type TabId = 'metadata' | 'attempts' | 'feedback' | 'visualization' | 'transcript' | 'raw';
+type TabId = 'metadata' | 'attempts' | 'feedback' | 'visualization' | 'raw';
 
 const TABS: { id: TabId; label: string }[] = [
   { id: 'metadata', label: 'Metadata' },
   { id: 'attempts', label: 'Attempt History' },
   { id: 'feedback', label: 'Compiler / Sanitizer' },
   { id: 'visualization', label: 'Visualization' },
-  { id: 'transcript', label: 'Transcript' },
   { id: 'raw', label: 'Raw JSON' },
 ];
 
@@ -238,20 +237,6 @@ export default function CveDetailTabs({ cve }: CveDetailTabsProps) {
                 />
               )}
             </>
-          )}
-        </div>
-      )}
-
-      {tab === 'transcript' && (
-        <div className="space-y-4">
-          {attempts.some((a) => a.transcript) ? (
-            attempts
-              .filter((a) => a.transcript)
-              .map((a) => (
-                <CodeViewer key={a.attempt} code={a.transcript} label={`Attempt #${a.attempt} — Transcript`} maxHeight="400px" />
-              ))
-          ) : (
-            <EmptyState title="Transcript not uploaded" message="LLM transcripts have not been attached to this CVE entry yet." />
           )}
         </div>
       )}

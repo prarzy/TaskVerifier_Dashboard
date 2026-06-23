@@ -6,7 +6,6 @@ const PAGE_TITLES: Record<string, string> = {
   '/cve-explorer': 'CVE Explorer',
   '/analysis': 'Analysis',
   '/models': 'Models',
-  '/timeline': 'Timeline',
   '/about': 'About',
 };
 

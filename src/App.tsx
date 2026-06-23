@@ -5,7 +5,6 @@ import CveExplorerPage from './pages/CveExplorerPage';
 import CveDetailPage from './pages/CveDetailPage';
 import AnalysisPage from './pages/AnalysisPage';
 import ModelsPage from './pages/ModelsPage';
-import TimelinePage from './pages/TimelinePage';
 import AboutPage from './pages/AboutPage';
 
 export default function App() {
@@ -18,7 +17,6 @@ export default function App() {
           <Route path="/cve-explorer/:id" element={<CveDetailPage />} />
           <Route path="/analysis" element={<AnalysisPage />} />
           <Route path="/models" element={<ModelsPage />} />
-          <Route path="/timeline" element={<TimelinePage />} />
           <Route path="/about" element={<AboutPage />} />
         </Route>
       </Routes>
